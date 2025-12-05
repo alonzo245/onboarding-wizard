@@ -10,6 +10,7 @@ import {
   ListBoxItem,
   SelectValue,
 } from "react-aria-components";
+import { DatePicker } from "../common/DatePicker";
 
 export function BusinessDetails() {
   const { data, setBusiness, setOwnerAddress, countries } = useOnboarding();
@@ -95,22 +96,15 @@ export function BusinessDetails() {
           )}
         </div>
         <div className="flex-1 min-w-0 sm:max-w-[260px]">
-          <label htmlFor="incDate" className="block mb-2 font-semibold">
-            Date of incorporation
-          </label>
-          <input
-            name="incDate"
-            type="date"
+          <DatePicker
+            label="Date of incorporation"
             value={data.business.incorporationDate}
-            onChange={(e: any) =>
-              setBusiness({ incorporationDate: e.target.value })
-            }
+            onChange={(value) => setBusiness({ incorporationDate: value })}
             onBlur={() => setTIncDate(true)}
-            className="w-full"
+            error={errors.incorporationDate}
+            touched={tIncDate}
+            name="incDate"
           />
-          {tIncDate && errors.incorporationDate && (
-            <div className="error mt-1">{errors.incorporationDate}</div>
-          )}
         </div>
       </div>
 

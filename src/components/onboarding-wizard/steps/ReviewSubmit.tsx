@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { useOnboarding } from "../OnboardingContext";
+import { useEffect } from "react";
 
 export function ReviewSubmit() {
   const { data, countries } = useOnboarding();
 
   const countryName = (code: string) =>
     countries.countries.find((c: any) => c.code === code)?.name ?? code;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div>

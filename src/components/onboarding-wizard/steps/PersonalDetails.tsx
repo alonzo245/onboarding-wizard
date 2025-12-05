@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { useOnboarding } from "../OnboardingContext";
 import { validateStepPersonal } from "../schema/validation";
+import { DatePicker } from "../common/DatePicker";
 
 export function PersonalDetails() {
   const { data, setPersonal } = useOnboarding();
@@ -70,20 +71,15 @@ export function PersonalDetails() {
         </div>
       </div>
       <div className="mt-4 sm:mt-6 w-full sm:max-w-xs">
-        <label htmlFor="dob" className="block mb-2 font-semibold">
-          Date of birth
-        </label>
-        <input
-          name="dob"
-          type="date"
+        <DatePicker
+          label="Date of birth"
           value={data.personal.dateOfBirth}
-          onChange={(e: any) => setPersonal({ dateOfBirth: e.target.value })}
+          onChange={(value) => setPersonal({ dateOfBirth: value })}
           onBlur={() => setTouchedDob(true)}
-          className="w-full"
+          error={errors.dateOfBirth}
+          touched={touchedDob}
+          name="dob"
         />
-        {touchedDob && errors.dateOfBirth && (
-          <div className="error mt-1">{errors.dateOfBirth}</div>
-        )}
       </div>
     </div>
   );
