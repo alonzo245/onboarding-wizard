@@ -153,7 +153,7 @@ export function OnboardingWizard() {
             <StepperNav steps={steps} activePath={pathname} />
           </div>
         )}
-        <div className="card p-4 sm:p-1" id="wizard-content">
+        <div className="card p-8 " id="wizard-content">
           <Outlet />
         </div>
         {pathname !== "/onboarding/thank-you" && (

@@ -2,6 +2,10 @@
 
 A multi-step onboarding wizard application built with React, TypeScript, and Tailwind CSS. This application guides users through a comprehensive onboarding process, collecting email, personal details, home address, and business information with form validation and data persistence.
 
+> **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-wizard/)
+
+> **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-wizard/)
+
 ## Screenshots
 
 <table>
@@ -97,6 +101,38 @@ yarn dev
 ```
 
 The application will be available at `http://localhost:5173` (or the port shown in the terminal).
+
+### GitHub Pages Deployment
+
+The project is configured for automatic deployment to GitHub Pages via GitHub Actions.
+
+**Setup Instructions:**
+
+1. **Enable GitHub Pages** in your repository settings:
+
+   - Go to your repository on GitHub
+   - Navigate to Settings → Pages
+   - Under "Source", select "GitHub Actions"
+
+2. **The deployment workflow** (`.github/workflows/deploy.yml`) will automatically:
+
+   - Build the project on every push to `main` branch
+   - Deploy to GitHub Pages
+   - The app will be available at: `https://alonzo245.github.io/onboarding-wizard/`
+
+3. **Base Path Configuration:**
+
+   - The `BASE_URL` is set to `/onboarding-wizard/` in the workflow, which matches your repository name
+   - This ensures all assets (CSS, JS) are correctly referenced with the proper base path
+   - The base path is automatically configured in `vite.config.ts` to use the `BASE_URL` environment variable
+   - The router is configured to handle the base path correctly
+
+4. **Manual Deployment:**
+   - Go to Actions tab in GitHub
+   - Select "Deploy to GitHub Pages" workflow
+   - Click "Run workflow"
+
+**Note:** After enabling GitHub Pages, the first deployment may take a few minutes. Subsequent deployments happen automatically on each push to `main`.
 
 ### Build for Production
 

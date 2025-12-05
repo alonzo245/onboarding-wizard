@@ -10,7 +10,7 @@ export function Email() {
 
   return (
     <div className="w-full">
-      <div className="w-full max-w-md sm:max-w-lg mx-auto">
+      <div className="w-full max-w-md sm:max-w-lg">
         <label htmlFor="email" className="block mb-2 font-semibold">
           Email
         </label>

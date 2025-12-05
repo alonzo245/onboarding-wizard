@@ -11,6 +11,11 @@ export function ThankYou() {
   const { data: contextData, countries } = useOnboarding();
   const [data, setData] = useState<OnboardingData>(contextData);
 
+  // Scroll to top on mount (especially important for mobile)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   // Load submitted data from localStorage on mount, or use context data if available
   useEffect(() => {
     // Prefer context data if it has values
