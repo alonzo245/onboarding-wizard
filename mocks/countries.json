@@ -1,0 +1,21 @@
+[
+  {
+    "name": "United States",
+    "code": "US",
+    "postalCodeRegex": "^[0-9]{5}$",
+    "cities": ["New York", "San Francisco", "Los Angeles", "Chicago"]
+  },
+  {
+    "name": "United Kingdom",
+    "code": "GB",
+    "postalCodeRegex": "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][A-Z]{2}$",
+    "cities": ["London", "Manchester", "Birmingham", "Edinburgh"]
+  },
+  {
+    "name": "Israel",
+    "code": "IL",
+    "postalCodeRegex": "^\\d{7}$",
+    "cities": ["Tel Aviv", "Jerusalem", "Haifa", "Beer Sheva"]
+  }
+]
+

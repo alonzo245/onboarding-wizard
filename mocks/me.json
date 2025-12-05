@@ -1,0 +1,17 @@
+[
+  {
+    "email": "jane.doe@example.com",
+    "firstName": "Jane",
+    "lastName": "Doe"
+  },
+  {
+    "email": "john.smith@acme.co",
+    "lastName": "Smith",
+    "BusinessName": "John Smith flowers LLC"
+  },
+  {
+    "email": "maya.levi@startup.io",
+    "lastName": "Levi"
+  }
+]
+
