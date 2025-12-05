@@ -23,19 +23,14 @@ export function Email() {
             const err = validateStepEmail(data.email);
             setError(err);
             if (err) return;
-            lookupToastId.current = toast.loading("Looking up your details…");
             const ok = await tryPrefillFromEmail(data.email.trim());
-            if (lookupToastId.current !== null) {
-              toast.update(lookupToastId.current, {
-                render: ok
-                  ? "We prefilled some details from your email."
-                  : "No matching record found. You can continue filling details manually.",
+            if (ok) {
+              toast("We prefilled some details from your email.", {
                 type: ok ? "success" : "info",
                 isLoading: false,
                 autoClose: 3000,
                 closeOnClick: true,
               });
-              lookupToastId.current = null;
             }
           }}
           placeholder="you@company.com"
