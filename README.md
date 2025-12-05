@@ -4,8 +4,6 @@ A multi-step onboarding wizard application built with React, TypeScript, and Tai
 
 > **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-wizard/)
 
-> **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-wizard/)
-
 ## Screenshots
 
 <table>
@@ -15,19 +13,27 @@ A multi-step onboarding wizard application built with React, TypeScript, and Tai
   <p><em>Email Step - Initial step with email input and optional pre-filling</em></p>
 </td>
 <td width="50%">
-  <img src="screenshots/3.png" alt="Onboarding Wizard - Home Address Step" width="100%" />
-  <p><em>Home Address Step - Country, city, street, house number, and postal code</em></p>
+  <img src="screenshots/2.png" alt="Onboarding Wizard - Personal Details Step" width="100%" />
+  <p><em>Personal Details Step - First name, last name, and date of birth with calendar picker</em></p>
 </td>
 </tr>
 <tr>
-
+<td width="50%">
+  <img src="screenshots/3.png" alt="Onboarding Wizard - Home Address Step" width="100%" />
+  <p><em>Home Address Step - Country, city, street, house number, and postal code</em></p>
+</td>
 <td width="50%">
   <img src="screenshots/4.png" alt="Onboarding Wizard - Business Details Step" width="100%" />
   <p><em>Business Details Step - Business information and owner address</em></p>
 </td>
+</tr>
+<tr>
 <td width="50%">
   <img src="screenshots/5.png" alt="Onboarding Wizard - Review & Submit Step" width="100%" />
   <p><em>Review & Submit Step - Final review of all entered information</em></p>
+</td>
+<td width="50%">
+  <!-- Empty cell for layout -->
 </td>
 </tr>
 </table>
@@ -40,6 +46,8 @@ A multi-step onboarding wizard application built with React, TypeScript, and Tai
 - **Data Persistence**: Automatic saving to `localStorage` to preserve user input across page refreshes
 - **Email Pre-filling**: Optional data pre-filling based on email lookup
 - **Progress Tracking**: Visual stepper navigation showing current progress and preventing navigation to future steps
+- **Accessible Components**: Built with `react-aria-components` for full keyboard navigation and screen reader support
+- **Date Picker**: Interactive calendar popup for date selection with internationalization support
 - **Responsive Design**: Mobile-first design with Tailwind CSS for optimal experience on all devices
 - **Success Celebration**: Confetti animation and thank you page upon successful submission
 - **Toast Notifications**: User feedback via `react-toastify` for success and error states
@@ -53,6 +61,7 @@ A multi-step onboarding wizard application built with React, TypeScript, and Tai
 - **Tailwind CSS** - Utility-first CSS framework
 - **Zod** - Schema validation
 - **React Query** - Data fetching and caching
+- **React Aria Components** - Accessible UI components with full keyboard and screen reader support
 - **React Toastify** - Toast notifications
 - **Canvas Confetti** - Celebration animations
 - **clsx** - Conditional class names
@@ -177,16 +186,18 @@ onboarding-wizard/
 │   │   └── onboarding-wizard/
 │   │       ├── OnboardingWizard.tsx    # Main wizard container component
 │   │       ├── OnboardingContext.tsx   # Global state management
-│   │       ├── HeaderNav.tsx           # Stepper navigation component
-│   │       ├── Footer.tsx              # Navigation footer component
+│   │       ├── Header.tsx               # Stepper navigation component
+│   │       ├── Footer.tsx               # Navigation footer component
+│   │       ├── common/
+│   │       │   └── DatePicker.tsx       # Reusable date picker component
 │   │       ├── schema/
 │   │       │   └── validation.ts       # Zod validation schemas
 │   │       ├── steps/
 │   │       │   ├── Email.tsx           # Email input step
-│   │       │   ├── PersonalDetails.tsx # Personal information step
-│   │       │   ├── HomeAddress.tsx     # Home address step
+│   │       │   ├── PersonalDetails.tsx  # Personal information step
+│   │       │   ├── HomeAddress.tsx      # Home address step
 │   │       │   ├── BusinessDetails.tsx # Business information step
-│   │       │   ├── ReviewSubmit.tsx    # Review and submit step
+│   │       │   ├── ReviewSubmit.tsx     # Review and submit step
 │   │       │   └── ThankYou.tsx        # Success page
 │   │       └── types.ts                # TypeScript type definitions
 │   ├── mocks/
@@ -206,9 +217,9 @@ onboarding-wizard/
 ## Wizard Steps
 
 1. **Email** - Enter email address with optional pre-filling
-2. **Personal Details** - First name, last name, and date of birth
-3. **Home Address** - Country, city, street, house number, and postal code
-4. **Business Details** - Business name, incorporation date, and owner address
+2. **Personal Details** - First name, last name, and date of birth (with calendar picker)
+3. **Home Address** - Country, city, street, house number, and postal code (with accessible select components)
+4. **Business Details** - Business name, incorporation date (with calendar picker), and owner address
 5. **Review & Submit** - Review all entered information before submission
 6. **Thank You** - Success page with submitted data and celebration animation
 
@@ -247,6 +258,9 @@ onboarding-wizard/
 - Country data is loaded from a static JSON file
 - Form state is managed through React Context API
 - TypeScript strict mode is enabled for better type safety
+- Date inputs use `react-aria-components` DatePicker with popup calendar for better UX
+- Select components use `react-aria-components` for accessibility and consistent styling
+- All form components are built with accessibility in mind, supporting keyboard navigation and screen readers
 
 ## Browser Support
 
