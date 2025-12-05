@@ -38,7 +38,7 @@ label {
 }
 input,
 select {
-  @apply w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-sm sm:text-base;
+  @apply w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-base;
 }
 dl {
   @apply grid gap-x-4 gap-y-2;
