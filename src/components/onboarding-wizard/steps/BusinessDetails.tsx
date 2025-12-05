@@ -1,6 +1,15 @@
 import { useMemo, useState, useEffect } from "react";
 import { useOnboarding } from "../OnboardingContext";
 import { validateStepBusiness } from "../schema/validation";
+import {
+  Select,
+  Label,
+  Button,
+  Popover,
+  ListBox,
+  ListBoxItem,
+  SelectValue,
+} from "react-aria-components";
 
 export function BusinessDetails() {
   const { data, setBusiness, setOwnerAddress, countries } = useOnboarding();
@@ -110,28 +119,40 @@ export function BusinessDetails() {
       </h3>
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-3">
         <div className="flex-1 min-w-0">
-          <label htmlFor="ownerCountry" className="block mb-2 font-semibold">
-            Country
-          </label>
-          <select
-            id="ownerCountry"
-            value={data.business.ownerAddress.countryCode}
-            onChange={(e: any) => {
-              const newCode = e.target.value;
+          <Select
+            selectedKey={data.business.ownerAddress.countryCode || null}
+            onSelectionChange={(key: any) => {
+              const newCode = key || "";
               setOwnerAddress({ countryCode: newCode, city: "" });
               setTOwnerCountry(true);
               setTOwnerCity(false);
             }}
             onBlur={() => setTOwnerCountry(true)}
+            placeholder="Select a country"
             className="w-full"
           >
-            <option value="">Select a country</option>
-            {countries.countries.map((c: any) => (
-              <option key={c.code} value={c.code}>
-                {c.name}
-              </option>
-            ))}
-          </select>
+            <Label className="block mb-2 font-semibold">Country</Label>
+            <Button className="w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-base text-left flex items-center justify-between">
+              <SelectValue className="flex-1" />
+              <span aria-hidden="true" className="text-xs ml-2">
+                ▼
+              </span>
+            </Button>
+            <Popover className="max-h-60 overflow-auto rounded-lg border border-black/10 dark:border-white/10 bg-neutral-800 shadow-lg">
+              <ListBox className="p-1">
+                {countries.countries.map((c: any) => (
+                  <ListBoxItem
+                    key={c.code}
+                    id={c.code}
+                    textValue={c.name}
+                    className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  >
+                    {c.name}
+                  </ListBoxItem>
+                ))}
+              </ListBox>
+            </Popover>
+          </Select>
           {tOwnerCountry && errors["ownerAddress.countryCode"] && (
             <div className="error mt-1">
               {errors["ownerAddress.countryCode"]}
@@ -139,24 +160,39 @@ export function BusinessDetails() {
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <label htmlFor="ownerCity" className="block mb-2 font-semibold">
-            City
-          </label>
-          <select
-            id="ownerCity"
-            value={data.business.ownerAddress.city}
-            onChange={(e: any) => setOwnerAddress({ city: e.target.value })}
-            disabled={!data.business.ownerAddress.countryCode}
+          <Select
+            selectedKey={data.business.ownerAddress.city || null}
+            onSelectionChange={(key: any) => {
+              setOwnerAddress({ city: key || "" });
+              setTOwnerCity(true);
+            }}
             onBlur={() => setTOwnerCity(true)}
+            isDisabled={!data.business.ownerAddress.countryCode}
+            placeholder="Select a city"
             className="w-full"
           >
-            <option value="">Select a city</option>
-            {ownerCities.map((c: any) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
+            <Label className="block mb-2 font-semibold">City</Label>
+            <Button className="w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-base text-left flex items-center justify-between disabled:opacity-50 disabled:cursor-not-allowed">
+              <SelectValue className="flex-1" />
+              <span aria-hidden="true" className="text-xs ml-2">
+                ▼
+              </span>
+            </Button>
+            <Popover className="max-h-60 overflow-auto rounded-lg border border-black/10 dark:border-white/10 bg-neutral-800 shadow-lg">
+              <ListBox className="p-1">
+                {ownerCities.map((c: any) => (
+                  <ListBoxItem
+                    key={c}
+                    id={c}
+                    textValue={c}
+                    className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  >
+                    {c}
+                  </ListBoxItem>
+                ))}
+              </ListBox>
+            </Popover>
+          </Select>
           {tOwnerCity && errors["ownerAddress.city"] && (
             <div className="error mt-1">{errors["ownerAddress.city"]}</div>
           )}

@@ -1,6 +1,15 @@
 import { useMemo, useState, useEffect } from "react";
 import { useOnboarding } from "../OnboardingContext";
 import { validateStepAddress } from "../schema/validation";
+import {
+  Select,
+  Label,
+  Button,
+  Popover,
+  ListBox,
+  ListBoxItem,
+  SelectValue,
+} from "react-aria-components";
 
 export function HomeAddress() {
   const { data, setHomeAddress, countries } = useOnboarding();
@@ -62,54 +71,78 @@ export function HomeAddress() {
       {countries.error && <div className="error mb-4">{countries.error}</div>}
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-3">
         <div className="flex-1 min-w-0">
-          <label htmlFor="country" className="block mb-2 font-semibold">
-            Country
-          </label>
-          <select
-            id="country"
-            value={data.homeAddress.countryCode}
-            onChange={(e: any) => {
-              const newCode = e.target.value;
+          <Select
+            selectedKey={data.homeAddress.countryCode || null}
+            onSelectionChange={(key: any) => {
+              const newCode = key || "";
               setHomeAddress({ countryCode: newCode, city: "" });
               setTCountry(true);
               setTCity(false);
             }}
             onBlur={() => setTCountry(true)}
+            placeholder="Select a country"
             className="w-full"
           >
-            <option value="">Select a country</option>
-            {countries.countries.map((c: any) => (
-              <option key={c.code} value={c.code}>
-                {c.name}
-              </option>
-            ))}
-          </select>
+            <Label className="block mb-2 font-semibold">Country</Label>
+            <Button className="w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-base text-left flex items-center justify-between">
+              <SelectValue className="flex-1" />
+              <span aria-hidden="true" className="text-xs ml-2">
+                ▼
+              </span>
+            </Button>
+            <Popover className="max-h-60 overflow-auto rounded-lg border border-black/10 dark:border-white/10 bg-neutral-800 shadow-lg">
+              <ListBox className="p-1">
+                {countries.countries.map((c: any) => (
+                  <ListBoxItem
+                    key={c.code}
+                    id={c.code}
+                    textValue={c.name}
+                    className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  >
+                    {c.name}
+                  </ListBoxItem>
+                ))}
+              </ListBox>
+            </Popover>
+          </Select>
           {tCountry && errors.countryCode && (
             <div className="error mt-1">{errors.countryCode}</div>
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <label htmlFor="city" className="block mb-2 font-semibold">
-            City
-          </label>
-          <select
-            id="city"
-            value={data.homeAddress.city}
-            onChange={(e: any) => {
-              setHomeAddress({ city: e.target.value });
+          <Select
+            selectedKey={data.homeAddress.city || null}
+            onSelectionChange={(key: any) => {
+              setHomeAddress({ city: key || "" });
               setTCity(true);
             }}
-            disabled={!data.homeAddress.countryCode}
             onBlur={() => setTCity(true)}
+            isDisabled={!data.homeAddress.countryCode}
+            placeholder="Select a city"
             className="w-full"
           >
-            <option value="">Select a city</option>
-            {cityOptions.map((c: any) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
+            <Label className="block mb-2 font-semibold">City</Label>
+            <Button className="w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-base text-left flex items-center justify-between disabled:opacity-50 disabled:cursor-not-allowed">
+              <SelectValue className="flex-1" />
+              <span aria-hidden="true" className="text-xs ml-2">
+                ▼
+              </span>
+            </Button>
+            <Popover className="max-h-60 overflow-auto rounded-lg border border-black/10 dark:border-white/10 bg-neutral-800 shadow-lg">
+              <ListBox className="p-1">
+                {cityOptions.map((c: any) => (
+                  <ListBoxItem
+                    key={c}
+                    id={c}
+                    textValue={c}
+                    className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                  >
+                    {c}
+                  </ListBoxItem>
+                ))}
+              </ListBox>
+            </Popover>
+          </Select>
           {tCity && errors.city && (
             <div className="error mt-1">{errors.city}</div>
           )}
