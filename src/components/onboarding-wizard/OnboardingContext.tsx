@@ -12,7 +12,7 @@ import {
   type OnboardingData,
   type PersonalDetails,
 } from "./types";
-import { fetchUserByEmail, submitApplication } from "../../../mocks/api";
+import { submitApplication } from "../../../mocks/api";
 import { toast } from "react-toastify";
 import { useCountriesQuery } from "./queries";
 import {
@@ -31,7 +31,6 @@ type Ctx = {
   setBusiness: (changes: Partial<BusinessDetails>) => void;
   setOwnerAddress: (changes: Partial<Address>) => void;
   countries: CountriesState;
-  tryPrefillFromEmail: (email: string) => Promise<boolean>;
   submit: () => Promise<{ ok: boolean; error?: string }>;
   furthestStep: number;
   setFurthestStep: (n: number) => void;
@@ -102,47 +101,6 @@ export function OnboardingProvider({
     }));
   };
 
-  const tryPrefillFromEmail = async (email: string): Promise<boolean> => {
-    try {
-      const result = await fetchUserByEmail(email);
-      if (!result || typeof result !== "object") return false;
-      const obj = result as Record<string, unknown>;
-      // extract case-insensitively
-      const pickStringCI = (keys: string[]): string | undefined => {
-        const key = Object.keys(obj).find((k) =>
-          keys.some((t) => t.toLowerCase() === k.toLowerCase())
-        );
-        const v = key ? obj[key] : undefined;
-        return typeof v === "string" ? v : undefined;
-      };
-      const firstName = pickStringCI(["firstName", "first_name", "firstname"]);
-      const lastName = pickStringCI(["lastName", "last_name", "lastname"]);
-      const businessName = pickStringCI([
-        "businessName",
-        "BusinessName",
-        "business_name",
-      ]);
-      const found = Boolean(firstName || lastName || businessName);
-      setData((prev) => ({
-        ...prev,
-        email: email,
-        personal: {
-          ...prev.personal,
-          firstName: firstName ?? prev.personal.firstName,
-          lastName: lastName ?? prev.personal.lastName,
-        },
-        business: {
-          ...prev.business,
-          businessName: businessName ?? prev.business.businessName,
-          ownerAddress: { ...prev.business.ownerAddress },
-        },
-      }));
-      return found;
-    } catch {
-      return false;
-    }
-  };
-
   const submit = async () => {
     try {
       await submitApplication(data);
@@ -174,7 +132,6 @@ export function OnboardingProvider({
       setBusiness,
       setOwnerAddress,
       countries: countriesState,
-      tryPrefillFromEmail,
       submit,
       furthestStep,
       setFurthestStep,

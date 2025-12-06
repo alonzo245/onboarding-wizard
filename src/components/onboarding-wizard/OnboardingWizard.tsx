@@ -27,7 +27,6 @@ export function OnboardingWizard() {
     setHomeAddress,
     setBusiness,
     setOwnerAddress,
-    tryPrefillFromEmail,
     furthestStep,
     setFurthestStep,
     countries,
@@ -55,11 +54,11 @@ export function OnboardingWizard() {
   };
 
   // Extracted handlers per step for readability
-  const handleEmailNext = async (): Promise<boolean> => {
+  const handleEmailNext = (): boolean => {
     const ok = validateStepEmail(data.email) === null;
     if (!ok) return false;
     setEmail(data.email.trim());
-    await tryPrefillFromEmail(data.email.trim());
+    // Note: Prefill is handled in Email.tsx onBlur, no need to call it here
     if (furthestStep < 1) setFurthestStep(1);
     return true;
   };
