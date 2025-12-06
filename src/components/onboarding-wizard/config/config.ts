@@ -1,4 +1,4 @@
-import type { Address, OnboardingData } from "./types";
+import type { Address, OnboardingData } from "../types/types";
 
 export const defaultAddress: Address = {
   countryCode: "",

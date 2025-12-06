@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { Email } from "./Email";
-import { AllTheProviders } from "../../../test/test-utils";
+import { Email } from "../Email";
+import { AllTheProviders } from "../../../../test/test-utils";
 import { toast } from "react-toastify";
 
 // Mock react-toastify

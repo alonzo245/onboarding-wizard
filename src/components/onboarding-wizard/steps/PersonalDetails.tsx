@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
-import { useOnboarding } from "../OnboardingContext";
-import { validateStepPersonal } from "../schema/validation";
-import { DatePicker } from "../common/DatePicker";
+import { useOnboarding } from "../context/OnboardingContext";
+import { validateStepPersonal } from "../validation/validation";
+import { DatePicker } from "../components/DatePicker";
 
 export function PersonalDetails() {
   const { data, setPersonal } = useOnboarding();

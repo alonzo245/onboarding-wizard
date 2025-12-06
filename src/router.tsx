@@ -12,14 +12,14 @@ const basePath = import.meta.env.BASE_URL || "/";
 
 export const router = createBrowserRouter(
   [
-    {
-      path: "/",
+  {
+    path: "/",
       element: <Navigate to="/onboarding" replace />,
     },
     {
       path: "/onboarding",
       element: <OnboardingWizard />,
-      children: [
+    children: [
         { index: true, element: <Navigate to="/onboarding/email" replace /> },
         { path: "email", element: <Email /> },
         { path: "personal", element: <PersonalDetails /> },
@@ -27,8 +27,8 @@ export const router = createBrowserRouter(
         { path: "business", element: <BusinessDetails /> },
         { path: "review", element: <ReviewSubmit /> },
         { path: "thank-you", element: <ThankYou /> },
-      ],
-    },
+    ],
+  },
   ],
   {
     basename: basePath === "/" ? undefined : basePath.replace(/\/$/, ""),

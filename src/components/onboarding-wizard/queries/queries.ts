@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCountries } from "../../../mocks/api";
-import type { Country } from "./types";
+import { fetchCountries } from "../../../../mocks/api";
+import type { Country } from "../types/types";
 
 export function useCountriesQuery() {
   return useQuery({

@@ -1,6 +1,6 @@
-import { fetchUserByEmail } from "../../../mocks/api";
+import { fetchUserByEmail } from "../../../../mocks/api";
 import { toast } from "react-toastify";
-import { useOnboarding } from "./OnboardingContext";
+import { useOnboarding } from "../context/OnboardingContext";
 
 /**
  * Hook for pre-filling user data from email lookup

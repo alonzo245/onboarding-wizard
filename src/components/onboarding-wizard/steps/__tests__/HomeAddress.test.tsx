@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { HomeAddress } from "./HomeAddress";
-import { AllTheProviders } from "../../../test/test-utils";
+import { HomeAddress } from "../HomeAddress";
+import { AllTheProviders } from "../../../../test/test-utils";
 
 describe("HomeAddress", () => {
   beforeEach(() => {

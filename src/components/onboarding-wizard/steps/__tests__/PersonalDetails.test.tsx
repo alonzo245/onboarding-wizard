@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { PersonalDetails } from "./PersonalDetails";
-import { AllTheProviders } from "../../../test/test-utils";
+import { PersonalDetails } from "../PersonalDetails";
+import { AllTheProviders } from "../../../../test/test-utils";
 
 describe("PersonalDetails", () => {
   beforeEach(() => {

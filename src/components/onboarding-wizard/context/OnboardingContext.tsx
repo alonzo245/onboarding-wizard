@@ -11,17 +11,17 @@ import {
   type CountriesState,
   type OnboardingData,
   type PersonalDetails,
-} from "./types";
-import { submitApplication } from "../../../mocks/api";
+} from "../types/types";
+import { submitApplication } from "../../../../mocks/api";
 import { toast } from "react-toastify";
-import { useCountriesQuery } from "./queries";
+import { useCountriesQuery } from "../queries/queries";
 import {
   defaultData,
   loadInitialState,
   STORAGE_KEY,
   SUBMITTED_DATA_KEY,
   type PersistedState,
-} from "./config";
+} from "../config/config";
 
 type Ctx = {
   data: OnboardingData;
@@ -104,6 +104,7 @@ export function OnboardingProvider({
   const submit = async () => {
     try {
       await submitApplication(data);
+      toast("Check the console log for submitted payload", { autoClose: 3000, delay: 1000 });
       try {
         if (typeof localStorage !== "undefined") {
           localStorage.setItem(SUBMITTED_DATA_KEY, JSON.stringify(data));

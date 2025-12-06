@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useOnboarding } from "../OnboardingContext";
+import { useOnboarding } from "../context/OnboardingContext";
 import confetti from "canvas-confetti";
-import type { OnboardingData } from "../types";
-import { SUBMITTED_DATA_KEY } from "../config";
+import type { OnboardingData } from "../types/types";
+import { SUBMITTED_DATA_KEY } from "../config/config";
 
 export function ThankYou() {
   const nav = useNavigate();

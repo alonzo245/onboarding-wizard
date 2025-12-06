@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
-import { useOnboarding } from "../OnboardingContext";
-import { validateStepAddress } from "../schema/validation";
+import { useOnboarding } from "../context/OnboardingContext";
+import { validateStepAddress } from "../validation/validation";
 import {
   Select,
   Label,
@@ -92,16 +92,16 @@ export function HomeAddress() {
             </Button>
             <Popover className="max-h-60 overflow-auto rounded-lg border border-black/10 dark:border-white/10 bg-neutral-800 shadow-lg">
               <ListBox className="p-1">
-                {countries.countries.map((c: any) => (
+            {countries.countries.map((c: any) => (
                   <ListBoxItem
                     key={c.code}
                     id={c.code}
                     textValue={c.name}
                     className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                   >
-                    {c.name}
+                {c.name}
                   </ListBoxItem>
-                ))}
+            ))}
               </ListBox>
             </Popover>
           </Select>
@@ -130,16 +130,16 @@ export function HomeAddress() {
             </Button>
             <Popover className="max-h-60 overflow-auto rounded-lg border border-black/10 dark:border-white/10 bg-neutral-800 shadow-lg">
               <ListBox className="p-1">
-                {cityOptions.map((c: any) => (
+            {cityOptions.map((c: any) => (
                   <ListBoxItem
                     key={c}
                     id={c}
                     textValue={c}
                     className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                   >
-                    {c}
+                {c}
                   </ListBoxItem>
-                ))}
+            ))}
               </ListBox>
             </Popover>
           </Select>

@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import type { OnboardingData, CountriesState } from "../components/onboarding-wizard/types";
+import type { OnboardingData, CountriesState } from "../components/onboarding-wizard/types/types";
 
 export const mockOnboardingData: OnboardingData = {
   email: "",

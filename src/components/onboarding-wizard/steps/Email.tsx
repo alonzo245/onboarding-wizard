@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useOnboarding } from "../OnboardingContext";
-import { usePrefillFromEmail } from "../hooks";
-import { validateStepEmail } from "../schema/validation";
+import { useOnboarding } from "../context/OnboardingContext";
+import { usePrefillFromEmail } from "../hooks/hooks";
+import { validateStepEmail } from "../validation/validation";
 
 export function Email() {
   const { data, setEmail } = useOnboarding();

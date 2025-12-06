@@ -2,7 +2,8 @@
   {
     "email": "jane.doe@example.com",
     "firstName": "Jane",
-    "lastName": "Doe"
+    "lastName": "Doe",
+    "businessName": "Jane Doe's Business"
   },
   {
     "email": "john.smith@acme.co",

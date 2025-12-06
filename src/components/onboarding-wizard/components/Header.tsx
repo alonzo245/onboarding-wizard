@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { useOnboarding } from "./OnboardingContext";
+import { useOnboarding } from "../context/OnboardingContext";
 import { useEffect, useRef } from "react";
 import {
   validateStepEmail,
   validateStepPersonal,
   validateStepAddress,
   validateStepBusiness,
-} from "./schema/validation";
+} from "../validation/validation";
 
 type Step = { path: string; label: string };
 

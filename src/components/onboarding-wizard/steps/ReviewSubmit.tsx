@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useOnboarding } from "../OnboardingContext";
+import { useOnboarding } from "../context/OnboardingContext";
 import { useEffect } from "react";
 
 export function ReviewSubmit() {

@@ -1,13 +1,13 @@
 import { Outlet, useLocation, Link, useNavigate } from "react-router-dom";
-import { StepperNav } from "./Header";
-import { Footer } from "./Footer";
-import { useOnboarding } from "./OnboardingContext";
+import { StepperNav } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { useOnboarding } from "./context/OnboardingContext";
 import {
   validateStepEmail,
   validateStepPersonal,
   validateStepAddress,
   validateStepBusiness,
-} from "./schema/validation";
+} from "./validation/validation";
 
 const steps = [
   { path: "/onboarding/email", label: "Email" },

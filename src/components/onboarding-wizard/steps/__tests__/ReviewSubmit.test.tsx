@@ -1,56 +1,39 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import { ThankYou } from "./ThankYou";
-import { AllTheProviders } from "../../../test/test-utils";
+import { ReviewSubmit } from "../ReviewSubmit";
+import { AllTheProviders } from "../../../../test/test-utils";
 
-// Mock canvas-confetti
-vi.mock("canvas-confetti", () => ({
-  default: vi.fn(),
-}));
-
-describe("ThankYou", () => {
+describe("ReviewSubmit", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // Clear localStorage
-    localStorage.clear();
   });
 
-  it("renders thank you heading", () => {
+  it("renders review section with heading", () => {
     render(
       <AllTheProviders>
-        <ThankYou />
+        <ReviewSubmit />
       </AllTheProviders>
     );
 
-    expect(screen.getByText(/thank you!/i)).toBeInTheDocument();
+    expect(screen.getByText(/review & submit/i)).toBeInTheDocument();
   });
 
-  it("displays success message", () => {
+  it("displays email section with edit link", () => {
     render(
       <AllTheProviders>
-        <ThankYou />
-      </AllTheProviders>
-    );
-
-    expect(
-      screen.getByText(/your application has been successfully submitted/i)
-    ).toBeInTheDocument();
-  });
-
-  it("displays email section", () => {
-    render(
-      <AllTheProviders>
-        <ThankYou />
+        <ReviewSubmit />
       </AllTheProviders>
     );
 
     expect(screen.getAllByText(/email/i).length).toBeGreaterThan(0);
+    const editLinks = screen.getAllByText(/edit/i);
+    expect(editLinks.length).toBeGreaterThan(0);
   });
 
   it("displays personal details section", () => {
     render(
       <AllTheProviders>
-        <ThankYou />
+        <ReviewSubmit />
       </AllTheProviders>
     );
 
@@ -63,41 +46,33 @@ describe("ThankYou", () => {
   it("displays home address section", () => {
     render(
       <AllTheProviders>
-        <ThankYou />
+        <ReviewSubmit />
       </AllTheProviders>
     );
 
     expect(screen.getByText(/home address/i)).toBeInTheDocument();
     expect(screen.getAllByText(/country/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/city/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/street/i).length).toBeGreaterThan(0);
   });
 
   it("displays business details section", () => {
     render(
       <AllTheProviders>
-        <ThankYou />
+        <ReviewSubmit />
       </AllTheProviders>
     );
 
     expect(screen.getByText(/business details/i)).toBeInTheDocument();
     expect(screen.getByText(/business name/i)).toBeInTheDocument();
+    expect(screen.getByText(/date of incorporation/i)).toBeInTheDocument();
     expect(screen.getByText(/owner address/i)).toBeInTheDocument();
-  });
-
-  it("renders back to homepage button", () => {
-    render(
-      <AllTheProviders>
-        <ThankYou />
-      </AllTheProviders>
-    );
-
-    expect(screen.getByText(/back to homepage/i)).toBeInTheDocument();
   });
 
   it("shows placeholder for empty values", async () => {
     render(
       <AllTheProviders>
-        <ThankYou />
+        <ReviewSubmit />
       </AllTheProviders>
     );
 
@@ -107,4 +82,3 @@ describe("ThankYou", () => {
     });
   });
 });
-

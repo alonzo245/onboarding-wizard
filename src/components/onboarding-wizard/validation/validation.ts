@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Country, OnboardingData } from "../types";
+import { Country, OnboardingData } from "../types/types";
 
 // Base field schemas
 const nonEmptyString = z.string().trim().min(1);

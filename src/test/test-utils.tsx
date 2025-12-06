@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import { OnboardingProvider } from "../components/onboarding-wizard/OnboardingContext";
+import { OnboardingProvider } from "../components/onboarding-wizard/context/OnboardingContext";
 
 export function createTestQueryClient() {
   return new QueryClient({
