@@ -71,8 +71,8 @@ export function ThankYou() {
 
   return (
     <div className="w-full px-4 sm:px-6 py-1 sm:py-4 max-w-2xl mx-auto">
-      <div className="text-center mb-6 sm:mb-10">
-        <h1 className="mt-0 mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold text-[#3a3]">
+      <div className="text-center mb-4 sm:mb-4">
+        <h1 className="mt-0 mb-1 sm:mb-2 text-2xl sm:text-3xl font-bold text-[#3a3]">
           Thank You!
         </h1>
         <p className="text-base sm:text-lg mb-0">
