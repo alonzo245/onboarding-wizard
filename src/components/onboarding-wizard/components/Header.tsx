@@ -18,7 +18,6 @@ export function StepperNav(props: { steps: Step[]; activePath: string }) {
   const activeStepRef = useRef<HTMLAnchorElement>(null);
 
   const isStepValidated = (stepPath: string, idx: number): boolean => {
-    // Only check validation for steps that have been reached
     if (idx > furthestStep) return false;
 
     if (stepPath === "/onboarding/email") {
@@ -46,7 +45,6 @@ export function StepperNav(props: { steps: Step[]; activePath: string }) {
       const navRect = nav.getBoundingClientRect();
       const linkRect = activeLink.getBoundingClientRect();
 
-      // Calculate scroll position to center the active step
       const scrollLeft =
         activeLink.offsetLeft - navRect.width / 2 + linkRect.width / 2;
 

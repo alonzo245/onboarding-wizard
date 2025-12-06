@@ -53,12 +53,10 @@ export function OnboardingWizard() {
     nav(steps[currentIdx - 1].path);
   };
 
-  // Extracted handlers per step for readability
   const handleEmailNext = (): boolean => {
     const ok = validateStepEmail(data.email) === null;
     if (!ok) return false;
     setEmail(data.email.trim());
-    // Note: Prefill is handled in Email.tsx onBlur, no need to call it here
     if (furthestStep < 1) setFurthestStep(1);
     return true;
   };
@@ -121,7 +119,7 @@ export function OnboardingWizard() {
     const stepPath = steps[currentIdx].path;
     let ok = true;
     if (stepPath === "/onboarding/email") {
-      ok = await handleEmailNext();
+      ok = handleEmailNext();
     } else if (stepPath === "/onboarding/personal") {
       ok = handlePersonalNext();
     } else if (stepPath === "/onboarding/home-address") {

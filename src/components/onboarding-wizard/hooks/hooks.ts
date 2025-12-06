@@ -2,10 +2,6 @@ import { fetchUserByEmail } from "../../../../mocks/api";
 import { toast } from "react-toastify";
 import { useOnboarding } from "../context/OnboardingContext";
 
-/**
- * Hook for pre-filling user data from email lookup
- * @returns A function that attempts to prefill user data based on email
- */
 export function usePrefillFromEmail() {
   const { setEmail, setPersonal, setBusiness, data } = useOnboarding();
 
@@ -15,7 +11,6 @@ export function usePrefillFromEmail() {
       if (!result || typeof result !== "object") return false;
       const obj = result as Record<string, unknown>;
 
-      // Extract case-insensitively
       const pickStringCI = (keys: string[]): string | undefined => {
         const key = Object.keys(obj).find((k) =>
           keys.some((t) => t.toLowerCase() === k.toLowerCase())
@@ -34,10 +29,8 @@ export function usePrefillFromEmail() {
 
       const found = Boolean(firstName || lastName || businessName);
 
-      // Always set the email
       setEmail(email);
 
-      // Update personal details if found
       if (firstName || lastName) {
         setPersonal({
           firstName: firstName ?? data.personal.firstName,
@@ -45,14 +38,12 @@ export function usePrefillFromEmail() {
         });
       }
 
-      // Update business name if found
       if (businessName) {
         setBusiness({
           businessName: businessName ?? data.business.businessName,
         });
       }
 
-      // Show toast notification if data was found and prefilled
       if (found) {
         toast("We prefilled some details from your email.", {
           type: "success",

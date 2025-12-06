@@ -10,14 +10,11 @@ export function ThankYou() {
   const { data: contextData, countries } = useOnboarding();
   const [data, setData] = useState<OnboardingData>(contextData);
 
-  // Scroll to top on mount (especially important for mobile)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Load submitted data from localStorage on mount, or use context data if available
   useEffect(() => {
-    // Prefer context data if it has values
     if (
       contextData.email ||
       contextData.personal.firstName ||
@@ -25,16 +22,13 @@ export function ThankYou() {
     ) {
       setData(contextData);
     } else if (typeof localStorage !== "undefined") {
-      // Fallback to localStorage if context is empty
       try {
         const saved = localStorage.getItem(SUBMITTED_DATA_KEY);
         if (saved) {
           const parsed = JSON.parse(saved) as OnboardingData;
           setData(parsed);
         }
-      } catch {
-        // ignore parse errors
-      }
+      } catch {}
     }
   }, []);
 
@@ -155,14 +149,11 @@ export function ThankYou() {
       <div className="text-center">
         <button
           onClick={() => {
-            // Clear submitted data when going back to homepage
             try {
               if (typeof localStorage !== "undefined") {
                 localStorage.removeItem(SUBMITTED_DATA_KEY);
               }
-            } catch {
-              // ignore storage errors
-            }
+            } catch {}
             nav("/onboarding/email");
           }}
           className="bg-[#3a3] text-white border-none px-6 py-3 rounded-lg text-sm sm:text-base cursor-pointer font-medium w-full sm:w-auto"

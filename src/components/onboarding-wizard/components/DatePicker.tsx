@@ -16,7 +16,7 @@ import { parseDate, CalendarDate } from "@internationalized/date";
 
 interface DatePickerProps {
   label: string;
-  value: string; // ISO format: YYYY-MM-DD
+  value: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
   error?: string;
@@ -35,7 +35,6 @@ export function DatePicker({
   name,
   className = "w-full",
 }: DatePickerProps) {
-  // Convert ISO string (YYYY-MM-DD) to CalendarDate or null
   const dateValue = value
     ? (() => {
         try {
@@ -48,7 +47,6 @@ export function DatePicker({
 
   const handleChange = (date: CalendarDate | null) => {
     if (date) {
-      // Convert CalendarDate to ISO string (YYYY-MM-DD)
       const isoString = `${date.year}-${String(date.month).padStart(
         2,
         "0"

@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   type Address,
   type BusinessDetails,
@@ -104,16 +98,16 @@ export function OnboardingProvider({
   const submit = async () => {
     try {
       await submitApplication(data);
-      toast("Check the console log for submitted payload", { autoClose: 3000, delay: 1000 });
+      toast("Check the console log for submitted payload", {
+        autoClose: 3000,
+        delay: 1000,
+      });
       try {
         if (typeof localStorage !== "undefined") {
           localStorage.setItem(SUBMITTED_DATA_KEY, JSON.stringify(data));
           localStorage.removeItem(STORAGE_KEY);
         }
-      } catch {
-        // ignore storage errors
-      }
-      // Reset context state to initial empty values
+      } catch {}
       setData({ ...defaultData });
       setFurthestStep(0);
       return { ok: true as const };
@@ -146,9 +140,7 @@ export function OnboardingProvider({
         const toPersist: PersistedState = { data, furthestStep };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
       }
-    } catch {
-      // ignore storage errors
-    }
+    } catch {}
   }, [data, furthestStep]);
 
   return (
