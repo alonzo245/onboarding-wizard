@@ -1,4 +1,5 @@
 import { Outlet, useLocation, Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { StepperNav } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { useOnboarding } from "./context/OnboardingContext";
@@ -36,6 +37,30 @@ export function OnboardingWizard() {
     0,
     steps.findIndex((s) => pathname.startsWith(s.path))
   );
+
+  useEffect(() => {
+    if (
+      pathname === "/onboarding/thank-you" ||
+      pathname.startsWith("/onboarding/thank-you")
+    ) {
+      return;
+    }
+
+    const isStepPath = steps.some((s) => pathname.startsWith(s.path));
+    if (!isStepPath) {
+      return;
+    }
+
+    const isLastStep = currentIdx === steps.length - 1;
+    const canAccessStep =
+      currentIdx === 0 || currentIdx <= furthestStep || isLastStep;
+
+    if (!canAccessStep) {
+      const targetStepIdx =
+        furthestStep < 0 ? 0 : Math.min(furthestStep, steps.length - 1);
+      nav(steps[targetStepIdx].path, { replace: true });
+    }
+  }, [pathname, currentIdx, furthestStep, nav]);
 
   const blurCurrentFields = () => {
     const host = document.getElementById("wizard-content");

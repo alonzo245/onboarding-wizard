@@ -13,6 +13,28 @@
   {
     "email": "maya.levi@startup.io",
     "lastName": "Levi"
+  },
+  {
+    "email": "complete.user@example.com",
+    "firstName": "Complete",
+    "lastName": "User",
+    "dateOfBirth": "1990-05-15",
+    "homeAddress": {
+      "countryCode": "US",
+      "city": "New York",
+      "street": "Broadway",
+      "houseNumber": "123",
+      "postalCode": "10001"
+    },
+    "businessName": "Complete Business Solutions Ltd",
+    "incorporationDate": "2020-01-10",
+    "ownerAddress": {
+      "countryCode": "US",
+      "city": "San Francisco",
+      "street": "Market Street",
+      "houseNumber": "456",
+      "postalCode": "94102"
+    }
   }
 ]
 
