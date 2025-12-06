@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useOnboarding } from "../OnboardingContext";
 import confetti from "canvas-confetti";
 import type { OnboardingData } from "../types";
-
-const SUBMITTED_DATA_KEY = "onboarding_submitted_data_v1";
+import { SUBMITTED_DATA_KEY } from "../config";
 
 export function ThankYou() {
   const nav = useNavigate();

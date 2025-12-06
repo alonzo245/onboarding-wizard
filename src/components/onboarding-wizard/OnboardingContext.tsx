@@ -9,17 +9,19 @@ import {
   type Address,
   type BusinessDetails,
   type CountriesState,
-  type Country,
   type OnboardingData,
   type PersonalDetails,
 } from "./types";
-import {
-  fetchCountries,
-  fetchUserByEmail,
-  submitApplication,
-} from "../../../mocks/api";
-import { useQuery } from "@tanstack/react-query";
+import { fetchUserByEmail, submitApplication } from "../../../mocks/api";
 import { toast } from "react-toastify";
+import { useCountriesQuery } from "./queries";
+import {
+  defaultData,
+  loadInitialState,
+  STORAGE_KEY,
+  SUBMITTED_DATA_KEY,
+  type PersistedState,
+} from "./config";
 
 type Ctx = {
   data: OnboardingData;
@@ -35,70 +37,6 @@ type Ctx = {
   setFurthestStep: (n: number) => void;
 };
 
-const defaultAddress: Address = {
-  countryCode: "",
-  city: "",
-  street: "",
-  houseNumber: "",
-  postalCode: "",
-};
-
-const defaultData: OnboardingData = {
-  email: "",
-  personal: {
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-  },
-  homeAddress: { ...defaultAddress },
-  business: {
-    businessName: "",
-    incorporationDate: "",
-    ownerAddress: { ...defaultAddress },
-  },
-};
-
-const STORAGE_KEY = "onboarding_data_v1";
-const SUBMITTED_DATA_KEY = "onboarding_submitted_data_v1";
-
-type PersistedState = { data: OnboardingData; furthestStep: number };
-
-function loadInitialState(): PersistedState {
-  try {
-    const raw =
-      typeof localStorage !== "undefined"
-        ? localStorage.getItem(STORAGE_KEY)
-        : null;
-    if (!raw) return { data: { ...defaultData }, furthestStep: 0 };
-    const parsed = JSON.parse(raw) as any;
-    const parsedData: Partial<OnboardingData> =
-      parsed && parsed.data ? parsed.data : parsed;
-    const mergedData: OnboardingData = {
-      ...defaultData,
-      ...parsedData,
-      personal: { ...defaultData.personal, ...(parsedData.personal ?? {}) },
-      homeAddress: { ...defaultAddress, ...(parsedData.homeAddress ?? {}) },
-      business: {
-        ...defaultData.business,
-        ...(parsedData.business ?? {}),
-        ownerAddress: {
-          ...defaultAddress,
-          ...(parsedData.business && parsedData.business.ownerAddress
-            ? parsedData.business.ownerAddress
-            : {}),
-        },
-      },
-    };
-    const furthestStep: number =
-      parsed && typeof parsed.furthestStep === "number"
-        ? parsed.furthestStep
-        : 0;
-    return { data: mergedData, furthestStep };
-  } catch {
-    return { data: { ...defaultData }, furthestStep: 0 };
-  }
-}
-
 const OnboardingCtx = createContext<Ctx | null>(null);
 
 export function OnboardingProvider({
@@ -111,32 +49,9 @@ export function OnboardingProvider({
   const [furthestStep, setFurthestStep] = useState<number>(
     () => initial.furthestStep
   );
-  useEffect(() => {
-    try {
-      if (typeof localStorage !== "undefined") {
-        const toPersist: PersistedState = { data, furthestStep };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
-      }
-    } catch {
-      // ignore storage errors
-    }
-  }, [data, furthestStep]);
-  const countriesQuery = useQuery({
-    queryKey: ["countries"],
-    queryFn: fetchCountries,
-    select: (raw: unknown): Country[] =>
-      Array.isArray(raw)
-        ? raw.map((r: any) => ({
-            name: String(r?.name ?? ""),
-            code: String(r?.code ?? ""),
-            postalCodeRegex: String(r?.postalCodeRegex ?? ".*"),
-            cities: Array.isArray(r?.cities)
-              ? r.cities.map((c: any) => String(c))
-              : [],
-          }))
-        : [],
-    staleTime: 10 * 60 * 1000,
-  });
+
+  const countriesQuery = useCountriesQuery();
+
   const countriesState: CountriesState = useMemo(() => {
     return {
       countries: countriesQuery.data ?? [],
@@ -266,6 +181,17 @@ export function OnboardingProvider({
     }),
     [data, countriesState, furthestStep]
   );
+
+  useEffect(() => {
+    try {
+      if (typeof localStorage !== "undefined") {
+        const toPersist: PersistedState = { data, furthestStep };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
+      }
+    } catch {
+      // ignore storage errors
+    }
+  }, [data, furthestStep]);
 
   return (
     <OnboardingCtx.Provider value={value}>{children}</OnboardingCtx.Provider>
