@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Business Onboarding Wizard</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        line-height: 1.4;
+      }
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .card {
+        background: canvas;
+        border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .row { display: flex; gap: 12px; }
+      .col { flex: 1; }
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        justify-content: space-between;
+      }
+      button, input, select {
+        font: inherit;
+      }
+      button {
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+        background: color-mix(in oklab, Canvas 96%, CanvasText 4%);
+        cursor: pointer;
+      }
+      button[disabled] { opacity: 0.6; cursor: not-allowed; }
+      .error { color: #d11; font-size: 0.9rem; }
+      label { display: block; margin-bottom: 6px; font-weight: 600; }
+      input, select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+        background: canvas;
+      }
+      dl { display: grid; grid-template-columns: 220px 1fr; gap: 8px 16px; }
+      dt { color: color-mix(in oklab, CanvasText 60%, transparent); }
+      dd { margin: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+  </html>
+
+

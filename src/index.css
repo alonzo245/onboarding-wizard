@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light touch to align with existing minimal styles */
+:root {
+  color-scheme: light dark;
+}
+body {
+  @apply m-0 font-sans;
+}
+.container {
+  @apply max-w-[1000px] mx-auto px-4 sm:px-6;
+}
+.card {
+  @apply bg-white/5 border border-black/10 dark:border-white/10 rounded-xl p-4 sm:p-5;
+}
+.row {
+  @apply flex flex-col sm:flex-row gap-3 flex-wrap;
+}
+.col {
+  @apply flex-1 min-w-0;
+}
+.actions {
+  @apply flex flex-col sm:flex-row gap-3 mt-4 justify-between;
+}
+button {
+  @apply px-4 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 cursor-pointer text-sm sm:text-base;
+}
+button:disabled {
+  @apply opacity-60 cursor-not-allowed;
+}
+.error {
+  @apply text-red-600 text-sm mt-1;
+}
+label {
+  @apply block mb-1 sm:mb-2 font-semibold text-sm sm:text-base;
+}
+input,
+select {
+  @apply w-full px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-transparent text-base;
+}
+dl {
+  @apply grid gap-x-4 gap-y-2;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  dl {
+  grid-template-columns: 220px 1fr;
+}
+}
+dt {
+  @apply text-black/60 dark:text-white/60 text-sm sm:text-base;
+}
+dd {
+  @apply m-0 text-sm sm:text-base;
+}
+
+/* Hide scrollbar for horizontal scrolling stepper */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

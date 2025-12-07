@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Vite/Tooling caches
+.vite/
+.cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Coverage
+coverage/
+
+# Editors/IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Deployment/hosting
+.vercel/
+.netlify/
+
+# Misc
+tmp/
+temp/
+*.local
+
+
