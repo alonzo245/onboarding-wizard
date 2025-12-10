@@ -1,6 +1,6 @@
 # Onboarding Wizard
 
-A multi-step onboarding wizard application built with React, TypeScript, and Tailwind CSS. This application guides users through a comprehensive onboarding process, collecting email, personal details, home address, and business information with form validation and data persistence.
+A multi-step onboarding wizard application built with React, TypeScript, and Tailwind CSS. This application guides users through a comprehensive onboarding process, collecting email, personal details, home address, and financial information with form validation and data persistence.
 
 > **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-wizard/)
 
@@ -23,8 +23,8 @@ A multi-step onboarding wizard application built with React, TypeScript, and Tai
   <p><em>Home Address Step - Country, city, street, house number, and postal code</em></p>
 </td>
 <td width="50%">
-  <img src="screenshots/4.png" alt="Onboarding Wizard - Business Details Step" width="100%" />
-  <p><em>Business Details Step - Business information and owner address</em></p>
+  <img src="screenshots/4.png" alt="Onboarding Wizard - Financial Details Step" width="100%" />
+  <p><em>Financial Details Step - Income, expenses, assets, liabilities, and net worth</em></p>
 </td>
 </tr>
 <tr>
@@ -65,6 +65,7 @@ A multi-step onboarding wizard application built with React, TypeScript, and Tai
 - **React Aria Components** - Accessible UI components with full keyboard and screen reader support
 - **React Toastify** - Toast notifications
 - **Canvas Confetti** - Celebration animations
+- **Zustand** - Lightweight state management
 - **clsx** - Conditional class names
 
 ## Prerequisites
@@ -128,11 +129,11 @@ The project is configured for automatic deployment to GitHub Pages via GitHub Ac
 
    - Build the project on every push to `main` branch
    - Deploy to GitHub Pages
-   - The app will be available at: `https://alonzo245.github.io/onboarding-wizard/`
+   - The app will be available at: `https://alonzo245.github.io/onboarding-form-data/`
 
 3. **Base Path Configuration:**
 
-   - The `BASE_URL` is set to `/onboarding-wizard/` in the workflow, which matches your repository name
+   - The `BASE_URL` is set to `/onboarding-form-data` in the router configuration
    - This ensures all assets (CSS, JS) are correctly referenced with the proper base path
    - The base path is automatically configured in `vite.config.ts` to use the `BASE_URL` environment variable
    - The router is configured to handle the base path correctly
@@ -183,45 +184,47 @@ yarn preview
 ```
 onboarding-wizard/
 ├── src/
-│   ├── components/
-│   │   └── onboarding-wizard/
+│   ├── routes/
+│   │   └── onboarding-form-data/
 │   │       ├── OnboardingWizard.tsx    # Main wizard container component
 │   │       ├── components/
-│   │       │   ├── DatePicker.tsx       # Reusable date picker component
 │   │       │   ├── Header.tsx           # Stepper navigation component
-│   │       │   └── Footer.tsx           # Navigation footer component
+│   │       │   ├── Footer.tsx           # Navigation footer component
+│   │       │   ├── Step.tsx             # Step wrapper component
+│   │       │   └── steps/
+│   │       │       ├── Email.tsx        # Email input step
+│   │       │       ├── PersonalDetails.tsx # Personal information step
+│   │       │       ├── HomeAddress.tsx   # Home address step
+│   │       │       ├── FinancialDetails.tsx # Financial information step
+│   │       │       ├── Review.tsx       # Review and submit step
+│   │       │       └── ThankYou.tsx     # Success page
 │   │       ├── config/
-│   │       │   └── config.ts            # Configuration and default data
-│   │       ├── context/
-│   │       │   └── OnboardingContext.tsx # Global state management
+│   │       │   └── stepsConfig.ts       # Step configuration and default data
 │   │       ├── hooks/
-│   │       │   └── hooks.ts             # Custom hooks (prefill functionality)
+│   │       │   ├── useOnboardingPersistence.ts # Data persistence hook
+│   │       │   └── useOnboardingSubmit.ts # Form submission hook
 │   │       ├── queries/
-│   │       │   └── queries.ts          # React Query hooks
-│   │       ├── steps/
-│   │       │   ├── __tests__/          # Step component tests
-│   │       │   ├── Email.tsx           # Email input step
-│   │       │   ├── PersonalDetails.tsx  # Personal information step
-│   │       │   ├── HomeAddress.tsx      # Home address step
-│   │       │   ├── BusinessDetails.tsx # Business information step
-│   │       │   ├── ReviewSubmit.tsx     # Review and submit step
-│   │       │   └── ThankYou.tsx        # Success page
-│   │       ├── types/
-│   │       │   └── types.ts            # TypeScript type definitions
-│   │       └── validation/
-│   │           └── validation.ts       # Zod validation schemas
+│   │       │   └── submitOnboarding.ts  # React Query mutation for submission
+│   │       ├── store/
+│   │       │   └── errorsStore.ts       # Zustand store for error management
+│   │       ├── validation/
+│   │       │   └── schemas.ts           # Zod validation schemas
+│   │       ├── constants.tsx             # Step constants and types
+│   │       └── types.ts                 # TypeScript type definitions
 │   ├── mocks/
-│   │   ├── api.ts                      # Mock API functions
-│   │   ├── countries.json              # Country data
-│   │   └── me.json                     # Sample user data
-│   ├── router.tsx                      # React Router configuration
-│   ├── main.tsx                        # Application entry point
-│   └── index.css                       # Global styles and Tailwind directives
-├── index.html                          # HTML template
-├── package.json                        # Dependencies and scripts
-├── tailwind.config.ts                  # Tailwind CSS configuration
-├── tsconfig.json                       # TypeScript configuration
-└── vite.config.ts                      # Vite configuration
+│   │   ├── api.ts                       # Mock API functions
+│   │   ├── countries.json               # Country data
+│   │   └── me.json                      # Sample user data
+│   ├── router.tsx                       # React Router configuration
+│   ├── main.tsx                         # Application entry point
+│   ├── index.css                        # Global styles and Tailwind directives
+│   └── constants.ts                     # Application constants
+├── index.html                           # HTML template
+├── package.json                         # Dependencies and scripts
+├── tailwind.config.ts                   # Tailwind CSS configuration
+├── postcss.config.js                    # PostCSS configuration
+├── tsconfig.json                        # TypeScript configuration
+└── vite.config.ts                       # Vite configuration
 ```
 
 ## Wizard Steps
@@ -229,7 +232,7 @@ onboarding-wizard/
 1. **Email** - Enter email address with optional pre-filling
 2. **Personal Details** - First name, last name, and date of birth (with calendar picker)
 3. **Home Address** - Country, city, street, house number, and postal code (with accessible select components)
-4. **Business Details** - Business name, incorporation date (with calendar picker), and owner address
+4. **Financial Details** - Income, expenses, assets, liabilities, and net worth
 5. **Review & Submit** - Review all entered information before submission
 6. **Thank You** - Success page with submitted data and celebration animation
 
@@ -252,9 +255,8 @@ onboarding-wizard/
 
 - Comprehensive pre-filling supports all wizard fields including:
   - Personal details (first name, last name, date of birth)
-  - Business information (business name, incorporation date)
+  - Financial information (income, expenses, assets, liabilities, net worth)
   - Home address (all address fields)
-  - Owner address (all address fields)
 - Case-insensitive field matching for flexible data formats
 
 ### Progress Control
@@ -276,13 +278,16 @@ onboarding-wizard/
 
 ## Development Notes
 
-- The application uses mock API functions located in `src/mocks/api.ts`
-- Country data is loaded from a static JSON file
-- Form state is managed through React Context API
+- The application uses mock API functions located in `mocks/api.ts`
+- Country data is loaded from a static JSON file (`mocks/countries.json`)
+- Form state is managed using React refs for step data and Zustand for error state
+- Data persistence is handled via `localStorage` through the `useOnboardingPersistence` hook
 - TypeScript strict mode is enabled for better type safety
 - Date inputs use `react-aria-components` DatePicker with popup calendar for better UX
 - Select components use `react-aria-components` for accessibility and consistent styling
 - All form components are built with accessibility in mind, supporting keyboard navigation and screen readers
+- Error state management is centralized using Zustand store (`errorsStore.ts`)
+- React Query is used for form submission with proper loading and error handling
 
 ## Browser Support
 
