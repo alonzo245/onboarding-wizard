@@ -2,41 +2,7 @@
 
 A multi-step onboarding wizard application built with React, TypeScript, and Tailwind CSS. This application guides users through a comprehensive onboarding process, collecting email, personal details, home address, and financial information with form validation and data persistence.
 
-> **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-wizard/)
-
-## Screenshots
-
-<table>
-<tr>
-<td width="50%">
-  <img src="screenshots/1.png" alt="Onboarding Wizard - Email Step" width="100%" />
-  <p><em>Email Step - Initial step with email input and optional pre-filling</em></p>
-</td>
-<td width="50%">
-  <img src="screenshots/2.png" alt="Onboarding Wizard - Personal Details Step" width="100%" />
-  <p><em>Personal Details Step - First name, last name, and date of birth with calendar picker</em></p>
-</td>
-</tr>
-<tr>
-<td width="50%">
-  <img src="screenshots/3.png" alt="Onboarding Wizard - Home Address Step" width="100%" />
-  <p><em>Home Address Step - Country, city, street, house number, and postal code</em></p>
-</td>
-<td width="50%">
-  <img src="screenshots/4.png" alt="Onboarding Wizard - Financial Details Step" width="100%" />
-  <p><em>Financial Details Step - Income, expenses, assets, liabilities, and net worth</em></p>
-</td>
-</tr>
-<tr>
-<td width="50%">
-  <img src="screenshots/5.png" alt="Onboarding Wizard - Review & Submit Step" width="100%" />
-  <p><em>Review & Submit Step - Final review of all entered information</em></p>
-</td>
-<td width="50%">
-  <!-- Empty cell for layout -->
-</td>
-</tr>
-</table>
+> **🌐 Live Demo**: [View on GitHub Pages](https://alonzo245.github.io/onboarding-form-data/)
 
 ## Features
 
